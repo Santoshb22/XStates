@@ -1,5 +1,5 @@
 import XStates from '../../Components/XStates/XStates'
-import "./home.css"
+import "./Home.css"
 const Home = () => {
   return (
     <div className='homePage'>
