@@ -18,6 +18,7 @@ const XStates = () => {
       try {
         const res = await fetch(`${baseUrl}countries`);
         const data = await res.json();
+        if (!res.ok) throw new Error('Network response was not ok');
         setCountries(data);
       } catch (error) {
         console.error('Error fetching countries:', error);
@@ -88,10 +89,7 @@ const XStates = () => {
       {selectedCity && selectedCountry && selectedState && (
         <div className="showAddress">
           <p>
-            You selected <span className="country">{selectedCountry}</span>,{' '}
-            <span className="cityState">
-              {selectedState}, {selectedCity}
-            </span>
+            You selected <span className="country">{selectedCountry}</span>,{' '} {selectedState}, {selectedCity}
           </p>
         </div>
       )}
