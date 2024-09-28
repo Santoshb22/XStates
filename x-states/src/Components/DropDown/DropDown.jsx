@@ -13,12 +13,12 @@ const DropDown = ({data, onChange, dropdownType, isDisabled }) => {
             <option value="" >Select {dropdownType}</option>
             {
                 data.length > 0? (
-                    data.map((data, idx)=> 
+                    data.map((item, idx)=> 
                     <option 
                     key={idx} 
-                    value={data}
+                    value={item}
                     >
-                        {data}
+                        {item}
                     </option>
                    )
                 ) : (

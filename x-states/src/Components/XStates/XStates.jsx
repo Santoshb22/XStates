@@ -20,7 +20,7 @@ const XStates = () => {
       .then((data) => setCountries(data))
       .catch((error) => {
         console.error('Error fetching countries:', error);
-        setCountries([{ name: 'Error fetching countries' }]);
+        setCountries(['Error fetching countries' ]);
       });
   }, []);
 
@@ -39,7 +39,7 @@ const XStates = () => {
       })
       .catch((error) => {
         console.error('Error fetching states:', error);
-        setStates([{ name: 'Error fetching states' }]);
+        setStates(['Error fetching states']);
       });
   }, [selectedCountry]);
 
@@ -54,7 +54,7 @@ const XStates = () => {
       .then((data) => setCities(data))
       .catch((error) => {
         console.error('Error fetching cities:', error);
-        setCities([{ name: 'Error fetching cities' }]);
+        setCities(['Error fetching cities' ]);
       });
   }, [selectedState]);
 
