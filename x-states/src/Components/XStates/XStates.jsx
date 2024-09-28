@@ -21,6 +21,7 @@ const XStates = () => {
         setCountries(data);
       } catch (error) {
         console.error('Error fetching countries:', error);
+        setCountries([{ name: 'Error fetching countries' }]);
       }
     };
 
@@ -35,10 +36,12 @@ const XStates = () => {
         const res = await fetch(`https://crio-location-selector.onrender.com/country=${selectedCountry}/states`);
         const data = await res.json();
         setStates(data);
+        if (!res.ok) throw new Error('Network response was not ok');
         setSelectedState(''); 
         setSelectedCity(''); 
       } catch (error) {
         console.error('Error fetching states:', error);
+        setStates([{ name: 'Error fetching states' }]);
       }
     };
 
@@ -51,12 +54,14 @@ const XStates = () => {
     const fetchCities = async () => {
       try {
         const res = await fetch(
-         `https://crio-location-selector.onrender.com/country=${selectedCountry}/state=${selectedState}/cities`
-        );
+          `https://crio-location-selector.onrender.com/country=${selectedCountry}/state=${selectedState}/cities`
+        );        
         const data = await res.json();
+        if (!res.ok) throw new Error('Network response was not ok');
         setCities(data);
       } catch (error) {
         console.error('Error fetching cities:', error);
+        setCities([{ name: 'Error fetching cities' }]);
       }
     };
 
@@ -102,11 +107,10 @@ const XStates = () => {
       {selectedCity && selectedCountry && selectedState && (
         <div className="showAddress">
           <p>
-            You selected <span className="country">{selectedCountry}</span>,{' '}
-            <span className="cityState">
-              {selectedState}, {selectedCity}
-            </span>
-          </p>
+          You selected <span>{selectedCity}</span>,{' '}
+          <span>{selectedState}</span>,{' '}
+          <span>{selectedCountry}</span>
+        </p>
         </div>
       )}
     </div>
