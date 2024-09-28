@@ -106,11 +106,15 @@ const XStates = () => {
 
       {selectedCity && selectedCountry && selectedState && (
         <div className="showAddress">
-          <p>
-          You selected <span>{selectedCity}</span>,{' '}
-          <span>{selectedState}</span>,{' '}
-          <span>{selectedCountry}</span>
-        </p>
+          {selectedCity && (
+                <h2 >
+                    You selected <span >{selectedCity}</span>,
+                    <span>
+                        {" "}
+                        {selectedState}, {selectedCountry}
+                    </span>
+                </h2>
+            )}
         </div>
       )}
     </div>
