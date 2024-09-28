@@ -87,12 +87,12 @@ const XStates = () => {
 
       {selectedCity && selectedCountry && selectedState && (
         <div className="showAddress">
-          <h3>
+          <p>
             You selected <span className="country">{selectedCountry}</span>,{' '}
-            <p className="cityState">
+            <span className="cityState">
               {selectedState}, {selectedCity}
-            </p>
-          </h3>
+            </span>
+          </p>
         </div>
       )}
     </div>
