@@ -13,7 +13,6 @@ const XStates = () => {
 
   const baseUrl = 'https://crio-location-selector.onrender.com/';
 
-  // Fetch countries on component mount
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -28,7 +27,6 @@ const XStates = () => {
     fetchCountries();
   }, []);
 
-  // Fetch states when country is selected
   useEffect(() => {
     if (!selectedCountry) return;
 
@@ -37,6 +35,8 @@ const XStates = () => {
         const res = await fetch(`${baseUrl}country=${selectedCountry}/states`);
         const data = await res.json();
         setStates(data);
+        setSelectedState(''); 
+        setSelectedCity(''); 
       } catch (error) {
         console.error('Error fetching states:', error);
       }
@@ -45,7 +45,6 @@ const XStates = () => {
     fetchStates();
   }, [selectedCountry]);
 
-  // Fetch cities when state is selected
   useEffect(() => {
     if (!selectedState) return;
 
@@ -69,7 +68,12 @@ const XStates = () => {
       <h1>Select Location</h1>
       <div className="dropDowns">
         <div className="countries">
-            <DropDown data={countries} onChange={(e) => setSelectedCountry(e.target.value)} dropdownType="Country" />
+            <DropDown data={countries} 
+            onChange={(e) =>
+               {setSelectedCountry(e.target.value) 
+                setSelectedState('')
+               setSelectedCity('')}}
+         dropdownType="Country" />
         </div>
 
         <div className="states">
@@ -85,9 +89,9 @@ const XStates = () => {
         <div className="showAddress">
           <h3>
             You selected <span className="country">{selectedCountry}</span>,{' '}
-            <span className="cityState">
+            <p className="cityState">
               {selectedState}, {selectedCity}
-            </span>
+            </p>
           </h3>
         </div>
       )}
