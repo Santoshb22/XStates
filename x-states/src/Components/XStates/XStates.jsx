@@ -11,52 +11,57 @@ const XStates = () => {
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
 
+  const BASE_URL = 'https://crio-location-selector.onrender.com';
+
   useEffect(() => {
-    fetch('https://crio-location-selector.onrender.com/countries')
-      .then((res) => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then((data) => setCountries(data))
-      .catch((error) => {
-        console.error('Error fetching countries:', error);
-        setCountries([{name: 'Error fetching countries'}]);
-      });
-  }, []);
+    const fetchCountries = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/countries`);
+        const data = await res.json();
+        setCountries(data);
+        
+      } catch (e) {
+          console.error('An error occurred while fetching countries');
+          setCountries([]);
+      }
+    }
+
+    fetchCountries();
+  }, [])
 
   useEffect(() => {
     if (!selectedCountry) return;
 
-    fetch(`https://crio-location-selector.onrender.com/country=${selectedCountry}/states`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then((data) => {
-        setStates(data);
-        setSelectedState('');
-        setSelectedCity('');
-      })
-      .catch((error) => {
-        console.error('Error fetching states:', error);
-      setStates([{ name: 'Error fetching states' }]);
-      });
-  }, [selectedCountry]);
+      const fetchStates = async (country) => {
+        try {
+            const res = await fetch(`${BASE_URL}/country=${country}/states`);
+            const data = await res.json();
+            setStates(data);
+        } catch (e) {
+            console.error('An error occurred while fetching states');
+            setSelectedState([]);
+        }
+    }
+
+    fetchStates(selectedCountry);
+
+  }, [selectedCountry])
 
   useEffect(() => {
     if (!selectedState) return;
 
-    fetch(`https://crio-location-selector.onrender.com/country=${selectedCountry}/state=${selectedState}/cities`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then((data) => setCities(data))
-      .catch((error) => {
-        console.error('Error fetching cities:', error);
-        setCities([{name: 'Error fetching cities'}]);
-      });
-  }, [selectedState]);
+    const fetchCities = async (country, state) => {
+      try {
+          const res = await fetch(`${BASE_URL}/country=${country}/state=${state}/cities`);
+          const data = await res.json();
+          setCities(data);
+      } catch (e) {
+          console.error('An error occurred while fetching cities');
+          setCities([]);
+      }
+  }
+  fetchCities(selectedCountry, selectedState);
+  }, [selectedState])
 
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);

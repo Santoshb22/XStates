@@ -10,7 +10,7 @@ const DropDown = ({data, onChange, dropdownType, isDisabled }) => {
         onChange={onChange}
         disabled = {isDisabled}
         >
-            <option value="" >Select {dropdownType}</option>
+            <option value="">Select {dropdownType}</option>
             {
                   data.map((item, idx)=> 
                     <option 
