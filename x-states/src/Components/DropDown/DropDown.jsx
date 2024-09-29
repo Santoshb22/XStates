@@ -12,8 +12,7 @@ const DropDown = ({data, onChange, dropdownType, isDisabled }) => {
         >
             <option value="" >Select {dropdownType}</option>
             {
-                data.length > 0? (
-                    data.map((item, idx)=> 
+                  data.map((item, idx)=> 
                     <option 
                     key={idx} 
                     value={item}
@@ -21,9 +20,7 @@ const DropDown = ({data, onChange, dropdownType, isDisabled }) => {
                         {item}
                     </option>
                    )
-                ) : (
-                    <option>No {dropdownType} Found</option>
-                )
+                
             }
         </select>
     </div>
