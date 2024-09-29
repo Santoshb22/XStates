@@ -65,6 +65,8 @@ const XStates = () => {
 
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);
+    setSelectedCity("");
+    setSelectedState("");
   };
 
   const handleStateChange = (event) => {
